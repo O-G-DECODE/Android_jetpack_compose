@@ -1,0 +1,119 @@
+Index: app/src/main/java/com/example/learning_one/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.learning_one\nimport androidx.compose.runtime.getValue\nimport androidx.compose.runtime.setValue\nimport android.os.Bundle\nimport androidx.activity.ComponentActivity\nimport androidx.activity.compose.setContent\nimport androidx.activity.enableEdgeToEdge\nimport androidx.compose.foundation.layout.Arrangement\nimport androidx.compose.foundation.layout.Column\nimport androidx.compose.foundation.layout.Spacer\nimport androidx.compose.foundation.layout.fillMaxSize\nimport androidx.compose.foundation.layout.fillMaxWidth\nimport androidx.compose.foundation.layout.padding\nimport androidx.compose.material3.Button\nimport androidx.compose.material3.OutlinedTextField\nimport androidx.compose.material3.Text\nimport androidx.compose.runtime.Composable\nimport androidx.compose.runtime.mutableStateOf\nimport androidx.compose.runtime.remember\nimport androidx.compose.ui.Alignment\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.graphics.Color\nimport androidx.compose.ui.text.font.FontWeight\nimport androidx.compose.ui.tooling.preview.Preview\nimport androidx.compose.ui.unit.dp\nimport androidx.compose.ui.unit.sp\n\nclass MainActivity : ComponentActivity() {\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        enableEdgeToEdge()\n        setContent {\n                   LoginApp()\n                }\n            }\n        }\n\n@Preview\n@Composable\nfun LoginApp(){\n    var email by remember { mutableStateOf(\"\") }\n    var password by remember { mutableStateOf(\"\") }\n    var message by remember { mutableStateOf(\"\") }\n    Column(\n        modifier = Modifier.fillMaxSize().padding(20.dp),\n        horizontalAlignment = Alignment.CenterHorizontally,\n        verticalArrangement = Arrangement.Center,\n        ) {\n        Text(\n            text = \"Login Page \" ,\n            fontSize = 20.sp,\n            modifier = Modifier.padding(20.dp),\n            fontWeight = FontWeight.Bold,\n        )\n        Spacer(modifier = Modifier.padding(16.dp))\n\n        OutlinedTextField(\n            value = email,\n            onValueChange = {email=it},\n            label = {Text(\"Enter the email\")},\n            modifier = Modifier.fillMaxWidth()\n        )\n        Spacer(modifier = Modifier.padding(8.dp))\n        OutlinedTextField(\n            value = password,\n            onValueChange = {password = it},\n            label = {Text(\"Enter the password\")},\n            modifier = Modifier.fillMaxWidth()\n        )\n        Spacer(modifier = Modifier.padding(10.dp))\n        Button(onClick = {\n            message = if ( email.isBlank() || password.isBlank()){\n                \"PLease fill all field\"\n            }else{\n                \"Login Sucessfull\"\n            }\n        })\n        {\n            Text(\"Login\")\n        }\n        Spacer(modifier = Modifier.padding(10.dp))\n\n        Text(text = message, color = Color.DarkGray)\n    }\n\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/learning_one/MainActivity.kt b/app/src/main/java/com/example/learning_one/MainActivity.kt
+--- a/app/src/main/java/com/example/learning_one/MainActivity.kt	(revision 2cec36553045e455012446e5d1766fb8f61b007c)
++++ b/app/src/main/java/com/example/learning_one/MainActivity.kt	(date 1771957124849)
+@@ -2,6 +2,7 @@
+ import androidx.compose.runtime.getValue
+ import androidx.compose.runtime.setValue
+ import android.os.Bundle
++import android.widget.Toast
+ import androidx.activity.ComponentActivity
+ import androidx.activity.compose.setContent
+ import androidx.activity.enableEdgeToEdge
+@@ -35,9 +36,10 @@
+             }
+         }
+ 
+-@Preview
++@Preview(showBackground = true)
+ @Composable
+ fun LoginApp(){
++    val context = androidx.compose.ui.platform.LocalContext.current
+     var email by remember { mutableStateOf("") }
+     var password by remember { mutableStateOf("") }
+     var message by remember { mutableStateOf("") }
+@@ -47,7 +49,7 @@
+         verticalArrangement = Arrangement.Center,
+         ) {
+         Text(
+-            text = "Login Page " ,
++            text = "Login  " ,
+             fontSize = 20.sp,
+             modifier = Modifier.padding(20.dp),
+             fontWeight = FontWeight.Bold,
+@@ -69,11 +71,12 @@
+         )
+         Spacer(modifier = Modifier.padding(10.dp))
+         Button(onClick = {
+-            message = if ( email.isBlank() || password.isBlank()){
+-                "PLease fill all field"
+-            }else{
+-                "Login Sucessfull"
+-            }
++              if ( email.isBlank() || password.isBlank()){
++                  Toast.makeText(context,"Invalid User", Toast.LENGTH_LONG).show()
++              }else{
++                  val intent = android.content.Intent(context, HomeActivity::class.java)
++                  context.startActivity(intent)
++              }
+         })
+         {
+             Text("Login")
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:tools=\"http://schemas.android.com/tools\">\n\n    <application\n        android:allowBackup=\"true\"\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\n        android:fullBackupContent=\"@xml/backup_rules\"\n        android:icon=\"@mipmap/ic_launcher\"\n        android:label=\"@string/app_name\"\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\n        android:supportsRtl=\"true\"\n        android:theme=\"@style/Theme.Learning_one\">\n        <activity\n            android:name=\".MainActivity\"\n            android:exported=\"true\"\n            android:label=\"@string/app_name\"\n            android:theme=\"@style/Theme.Learning_one\">\n            <intent-filter>\n                <action android:name=\"android.intent.action.MAIN\" />\n\n                <category android:name=\"android.intent.category.LAUNCHER\" />\n            </intent-filter>\n        </activity>\n    </application>\n\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 2cec36553045e455012446e5d1766fb8f61b007c)
++++ b/app/src/main/AndroidManifest.xml	(date 1771956137875)
+@@ -12,6 +12,11 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.Learning_one">
+         <activity
++            android:name=".HomeActivity"
++            android:exported="false"
++            android:label="@string/title_activity_home"
++            android:theme="@style/Theme.Learning_one" />
++        <activity
+             android:name=".MainActivity"
+             android:exported="true"
+             android:label="@string/app_name"
+Index: app/src/main/java/com/example/learning_one/HomeActivity.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/learning_one/HomeActivity.kt b/app/src/main/java/com/example/learning_one/HomeActivity.kt
+new file mode 100644
+--- /dev/null	(date 1771956217762)
++++ b/app/src/main/java/com/example/learning_one/HomeActivity.kt	(date 1771956217762)
+@@ -0,0 +1,17 @@
++package com.example.learning_one
++
++import android.os.Bundle
++import androidx.activity.ComponentActivity
++import androidx.activity.compose.setContent
++import androidx.activity.enableEdgeToEdge
++
++class HomeActivity : ComponentActivity() {
++    override fun onCreate(savedInstanceState: Bundle?) {
++        super.onCreate(savedInstanceState)
++        enableEdgeToEdge()
++        setContent {
++
++        }
++    }
++}
++
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\n    <string name=\"app_name\">Learning_one</string>\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 2cec36553045e455012446e5d1766fb8f61b007c)
++++ b/app/src/main/res/values/strings.xml	(date 1771956137818)
+@@ -1,3 +1,4 @@
+ <resources>
+     <string name="app_name">Learning_one</string>
++    <string name="title_activity_home">HomeActivity</string>
+ </resources>
+\ No newline at end of file
