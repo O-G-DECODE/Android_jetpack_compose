@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -35,12 +34,12 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-@Preview
 @Composable
 fun LoginApp(){
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var message by remember { mutableStateOf("") }
+    val context = androidx.compose.ui.platform.LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize().padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -81,6 +80,14 @@ fun LoginApp(){
         Spacer(modifier = Modifier.padding(10.dp))
 
         Text(text = message, color = Color.DarkGray)
+        Button(
+            onClick = {
+                val intent = android.content.Intent(context, SignUpActivity::class.java)
+                context.startActivity(intent)
+            }
+        ) {
+            Text("SignUp")
+        }
     }
 
 }
