@@ -18,6 +18,22 @@ Each concept is implemented in a separate branch:
 - Learn how to initialize and manage a variable using `remember` and `mutableStateOf`.
 - Simple counter app with a button click interaction.
 
+3️⃣ Login
+
+Learn how to build a simple Login UI using Jetpack Compose.
+
+Implement Text, TextField, and Button.
+
+Apply basic styling using Modifier.
+
+4️⃣ LoginSignUp
+
+Learn how to structure layouts using Column and Row.
+
+Understand alignment and arrangement in Compose.
+
+Implement activity switching using a Button and Intent
+
 ---
 
 ## 🛠 Tech Used
